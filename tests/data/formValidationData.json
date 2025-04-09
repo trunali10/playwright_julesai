@@ -1,0 +1,18 @@
+[
+    {
+      "email": "",
+      "password": "somepassword",
+      "expectedError": "Required"
+    },
+    {
+      "email": "qa@julesai.com",
+      "password": "QaJU",
+      "expectedError": "Password too short"
+    },
+    {
+      "email": "qa@julesai.com",
+      "password": "",
+      "expectedError": "Required"
+    }
+  ]
+  
