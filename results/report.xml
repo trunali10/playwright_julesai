@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="julesai" tests="3" time="3.447">
+  <testsuite name="Login - success" id="a406d13b-5ce3-4767-b4ba-f18cab1bd50a" timestamp="2025-04-10T20:06:42.371Z" tests="2" failures="0" errors="0" time="0.969">
+    <testcase name="Login success - Status code is 200" time="0.969" classname="LoginSuccess"/>
+    <testcase name="Login success - Token is returned" time="0.969" classname="LoginSuccess"/>
+  </testsuite>
+  <testsuite name="Login - Failure" id="dfe129c5-3e35-4104-8dcf-886f84aa0ade" timestamp="2025-04-10T20:06:42.371Z" tests="1" failures="1" errors="0" time="0.338">
+    <testcase name="Login failed - Invalid credentials" time="0.338" classname="LoginFailure">
+      <failure type="AssertionFailure" message="expected 'WRONG_CREDENTIALS' to include 'Invalid credentials'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 064742e7-fa1a-4c5f-bb2d-29ae0a60813c.]]>
+        <![CDATA[Collection name: julesai.]]>
+        <![CDATA[Request name: Login - Failure.]]>
+        <![CDATA[Test description: Login failed - Invalid credentials.]]>
+        <![CDATA[Error message: expected 'WRONG_CREDENTIALS' to include 'Invalid credentials'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected 'WRONG_CREDENTIALS' to include 'Invalid credentials'
+   at Object.eval sandbox-script.js:1:2).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="New Request" id="af5588c2-4de4-4719-9984-fb91b5e5e1e9" timestamp="2025-04-10T20:06:42.371Z" tests="0" failures="0" errors="0" time="2.140"/>
+</testsuites>

@@ -13,7 +13,7 @@ test.describe('Dashboard Navigation and Note Flow', () => {
       await loginPage.goto();
       await loginPage.login(creds.email, creds.password);
 
-      // Step 2: Verify dashboardß
+      // Step 2: Verify dashboard
       // Only if "Demo" is confirmed to appear after login
       await expect(page.getByText('Demo')).toBeVisible();
 

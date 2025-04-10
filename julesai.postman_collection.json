@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "064742e7-fa1a-4c5f-bb2d-29ae0a60813c",
+		"name": "julesai",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43883062"
+	},
+	"item": [
+		{
+			"name": "Login - success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login success - Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Login success - Token is returned\", function () {",
+							"  const res = pm.response.json();",
+							"  pm.expect(res.data.login.token).to.be.a(\"string\");",
+							"  pm.environment.set(\"token\", res.data.login.token); // Save token for next requests",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": ""
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "client-name",
+						"value": "web"
+					},
+					{
+						"key": "client-tz",
+						"value": "Asia/Calcutta"
+					},
+					{
+						"key": "client-version",
+						"value": "1.0.7"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://demo.haroldwaste.com"
+					},
+					{
+						"key": "pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://demo.haroldwaste.com/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+						"variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\":\"QaJULES2023!\"\n}\n"
+					}
+				},
+				"url": {
+					"raw": "https://demo.api.haroldwaste.com/graphql",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"api",
+						"haroldwaste",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login - Failure",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login failed - Invalid credentials\", function () {",
+							"  const res = pm.response.json();",
+							"  pm.expect(res.errors[0].message).to.include(\"Invalid credentials\"); // Error message may vary",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": ""
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "client-name",
+						"value": "web"
+					},
+					{
+						"key": "client-tz",
+						"value": "Asia/Calcutta"
+					},
+					{
+						"key": "client-version",
+						"value": "1.0.7"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://demo.haroldwaste.com"
+					},
+					{
+						"key": "pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://demo.haroldwaste.com/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+						"variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\": \"wrongpass\"\n}\n"
+					}
+				},
+				"url": {
+					"raw": "https://demo.api.haroldwaste.com/graphql",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"api",
+						"haroldwaste",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDI3ODMwOX0.6YaSOF-0CWmguiMrny_rtwUuQVzAySvUJblfYAUgbYE"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "client-name",
+						"value": "web demo_wm_lotr_extr"
+					},
+					{
+						"key": "client-tz",
+						"value": "Asia/Calcutta"
+					},
+					{
+						"key": "client-version",
+						"value": "1.0.7"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "origin",
+						"value": "https://demo.haroldwaste.com"
+					},
+					{
+						"key": "pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "priority",
+						"value": "u=1, i"
+					},
+					{
+						"key": "referer",
+						"value": "https://demo.haroldwaste.com/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "https://demo.api.haroldwaste.com/graphql?operationName=purchaseMonthToDate&variables=%7B%22input%22%3A%7B%22filters%22%3A%7B%22destinationId%22%3Anull%2C%22incoterms%22%3A%5B%5D%2C%22statuses%22%3A%5B%22CONFIRMED%22%5D%2C%22type%22%3A%22BUY%22%2C%22isWM%22%3Afalse%2C%22isWarehouse%22%3Afalse%7D%2C%22targetVolume%22%3A%22T%22%7D%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22b360cff8c26c97b88378da1dc898f6a562f443e619aa259bec7d835632f6b0eb%22%7D%7D",
+					"protocol": "https",
+					"host": [
+						"demo",
+						"api",
+						"haroldwaste",
+						"com"
+					],
+					"path": [
+						"graphql"
+					],
+					"query": [
+						{
+							"key": "operationName",
+							"value": "purchaseMonthToDate"
+						},
+						{
+							"key": "variables",
+							"value": "%7B%22input%22%3A%7B%22filters%22%3A%7B%22destinationId%22%3Anull%2C%22incoterms%22%3A%5B%5D%2C%22statuses%22%3A%5B%22CONFIRMED%22%5D%2C%22type%22%3A%22BUY%22%2C%22isWM%22%3Afalse%2C%22isWarehouse%22%3Afalse%7D%2C%22targetVolume%22%3A%22T%22%7D%7D"
+						},
+						{
+							"key": "extensions",
+							"value": "%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22b360cff8c26c97b88378da1dc898f6a562f443e619aa259bec7d835632f6b0eb%22%7D%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

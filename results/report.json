@@ -1,0 +1,3734 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "064742e7-fa1a-4c5f-bb2d-29ae0a60813c",
+      "exporter_id": "43883062"
+    },
+    "item": [
+      {
+        "id": "a406d13b-5ce3-4767-b4ba-f18cab1bd50a",
+        "name": "Login - success",
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "graphql"
+            ],
+            "host": [
+              "demo",
+              "api",
+              "haroldwaste",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "accept",
+              "value": "*/*"
+            },
+            {
+              "key": "accept-language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "key": "authorization",
+              "value": ""
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "client-name",
+              "value": "web"
+            },
+            {
+              "key": "client-tz",
+              "value": "Asia/Calcutta"
+            },
+            {
+              "key": "client-version",
+              "value": "1.0.7"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "origin",
+              "value": "https://demo.haroldwaste.com"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "key": "referer",
+              "value": "https://demo.haroldwaste.com/"
+            },
+            {
+              "key": "sec-ch-ua",
+              "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+            },
+            {
+              "key": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "key": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "key": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "key": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "key": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "key": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "graphql",
+            "graphql": {
+              "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+              "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\":\"QaJULES2023!\"\n}\n"
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "86933495-173b-4c41-ab15-b766bff26b1b",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "pm.test(\"Login success - Status code is 200\", function () {",
+                "  pm.response.to.have.status(200);",
+                "});",
+                "",
+                "pm.test(\"Login success - Token is returned\", function () {",
+                "  const res = pm.response.json();",
+                "  pm.expect(res.data.login.token).to.be.a(\"string\");",
+                "  pm.environment.set(\"token\", res.data.login.token); // Save token for next requests",
+                "});",
+                ""
+              ],
+              "_lastExecutionId": "8433c899-e599-4a95-a568-53b681a2dd5f"
+            }
+          }
+        ]
+      },
+      {
+        "id": "dfe129c5-3e35-4104-8dcf-886f84aa0ade",
+        "name": "Login - Failure",
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "graphql"
+            ],
+            "host": [
+              "demo",
+              "api",
+              "haroldwaste",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "accept",
+              "value": "*/*"
+            },
+            {
+              "key": "accept-language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "key": "authorization",
+              "value": ""
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "client-name",
+              "value": "web"
+            },
+            {
+              "key": "client-tz",
+              "value": "Asia/Calcutta"
+            },
+            {
+              "key": "client-version",
+              "value": "1.0.7"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "origin",
+              "value": "https://demo.haroldwaste.com"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "key": "referer",
+              "value": "https://demo.haroldwaste.com/"
+            },
+            {
+              "key": "sec-ch-ua",
+              "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+            },
+            {
+              "key": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "key": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "key": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "key": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "key": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "key": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "graphql",
+            "graphql": {
+              "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+              "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\": \"wrongpass\"\n}\n"
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "4b627b92-b497-458b-8b4a-208bf7939c4b",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "pm.test(\"Login failed - Invalid credentials\", function () {",
+                "  const res = pm.response.json();",
+                "  pm.expect(res.errors[0].message).to.include(\"Invalid credentials\"); // Error message may vary",
+                "});",
+                ""
+              ],
+              "_lastExecutionId": "2127a340-1d30-4e1f-8406-bca23b70ce90"
+            }
+          }
+        ]
+      },
+      {
+        "id": "af5588c2-4de4-4719-9984-fb91b5e5e1e9",
+        "name": "New Request",
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "graphql"
+            ],
+            "host": [
+              "demo",
+              "api",
+              "haroldwaste",
+              "com"
+            ],
+            "query": [
+              {
+                "key": "operationName",
+                "value": "purchaseMonthToDate"
+              },
+              {
+                "key": "variables",
+                "value": "%7B%22input%22%3A%7B%22filters%22%3A%7B%22destinationId%22%3Anull%2C%22incoterms%22%3A%5B%5D%2C%22statuses%22%3A%5B%22CONFIRMED%22%5D%2C%22type%22%3A%22BUY%22%2C%22isWM%22%3Afalse%2C%22isWarehouse%22%3Afalse%7D%2C%22targetVolume%22%3A%22T%22%7D%7D"
+              },
+              {
+                "key": "extensions",
+                "value": "%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22b360cff8c26c97b88378da1dc898f6a562f443e619aa259bec7d835632f6b0eb%22%7D%7D"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "accept",
+              "value": "*/*"
+            },
+            {
+              "key": "accept-language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "key": "authorization",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDI3ODMwOX0.6YaSOF-0CWmguiMrny_rtwUuQVzAySvUJblfYAUgbYE"
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "client-name",
+              "value": "web demo_wm_lotr_extr"
+            },
+            {
+              "key": "client-tz",
+              "value": "Asia/Calcutta"
+            },
+            {
+              "key": "client-version",
+              "value": "1.0.7"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "origin",
+              "value": "https://demo.haroldwaste.com"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "key": "referer",
+              "value": "https://demo.haroldwaste.com/"
+            },
+            {
+              "key": "sec-ch-ua",
+              "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+            },
+            {
+              "key": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "key": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "key": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "key": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "key": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "key": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+            }
+          ],
+          "method": "GET"
+        },
+        "response": [],
+        "event": []
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "064742e7-fa1a-4c5f-bb2d-29ae0a60813c",
+      "name": "julesai",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment",
+      "postman_exported_at": "2025-04-10T19:59:14.821Z",
+      "postman_exported_using": "Postman/11.40.4-250410-0804"
+    },
+    "id": "f5e1248b-c090-4e91-a5ab-f9e2335b7d2f",
+    "name": "staging",
+    "values": [
+      {
+        "type": "any",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDMxNTYwM30.TaZriX3juZpmVZsL0EuZ4SD_AlDTfhEEi3RK3yIB1ZM",
+        "key": "token"
+      }
+    ]
+  },
+  "globals": {
+    "id": "9481d273-8330-4987-a3d2-9f014204a29f",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 3,
+        "pending": 0,
+        "failed": 1
+      },
+      "testScripts": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 1149,
+      "responseMin": 338,
+      "responseMax": 2140,
+      "responseSd": 746.5927046701345,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1744315602371,
+      "completed": 1744315605903
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 3,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "b02370ab-f583-41ff-bd7c-cc1047ea7856",
+          "httpRequestId": "d54d434b-4540-4b35-9a67-737227518720"
+        },
+        "item": {
+          "id": "a406d13b-5ce3-4767-b4ba-f18cab1bd50a",
+          "name": "Login - success",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "demo",
+                "api",
+                "haroldwaste",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "accept-language",
+                "value": "en-US,en;q=0.9"
+              },
+              {
+                "key": "authorization",
+                "value": ""
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              },
+              {
+                "key": "client-name",
+                "value": "web"
+              },
+              {
+                "key": "client-tz",
+                "value": "Asia/Calcutta"
+              },
+              {
+                "key": "client-version",
+                "value": "1.0.7"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              },
+              {
+                "key": "origin",
+                "value": "https://demo.haroldwaste.com"
+              },
+              {
+                "key": "pragma",
+                "value": "no-cache"
+              },
+              {
+                "key": "priority",
+                "value": "u=1, i"
+              },
+              {
+                "key": "referer",
+                "value": "https://demo.haroldwaste.com/"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              },
+              {
+                "key": "sec-fetch-dest",
+                "value": "empty"
+              },
+              {
+                "key": "sec-fetch-mode",
+                "value": "cors"
+              },
+              {
+                "key": "sec-fetch-site",
+                "value": "same-site"
+              },
+              {
+                "key": "user-agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+                "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\":\"QaJULES2023!\"\n}\n"
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "86933495-173b-4c41-ab15-b766bff26b1b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"Login success - Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Login success - Token is returned\", function () {",
+                  "  const res = pm.response.json();",
+                  "  pm.expect(res.data.login.token).to.be.a(\"string\");",
+                  "  pm.environment.set(\"token\", res.data.login.token); // Save token for next requests",
+                  "});",
+                  ""
+                ],
+                "_lastExecutionId": "8433c899-e599-4a95-a568-53b681a2dd5f"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "graphql"
+            ],
+            "host": [
+              "demo",
+              "api",
+              "haroldwaste",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "accept",
+              "value": "*/*"
+            },
+            {
+              "key": "accept-language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "key": "authorization",
+              "value": ""
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "client-name",
+              "value": "web"
+            },
+            {
+              "key": "client-tz",
+              "value": "Asia/Calcutta"
+            },
+            {
+              "key": "client-version",
+              "value": "1.0.7"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "origin",
+              "value": "https://demo.haroldwaste.com"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "key": "referer",
+              "value": "https://demo.haroldwaste.com/"
+            },
+            {
+              "key": "sec-ch-ua",
+              "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+            },
+            {
+              "key": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "key": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "key": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "key": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "key": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "key": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+            },
+            {
+              "key": "Postman-Token",
+              "value": "e5168f7e-2777-4c59-b328-59d7a05da5bd",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "demo.api.haroldwaste.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "207",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "graphql",
+            "graphql": {
+              "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+              "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\":\"QaJULES2023!\"\n}\n"
+            }
+          }
+        },
+        "response": {
+          "id": "5baaacbd-8d1e-475d-8536-cd17e24a8a6a",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 10 Apr 2025 20:06:43 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "cross-origin-opener-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "cross-origin-resource-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "origin-agent-cluster",
+              "value": "?1"
+            },
+            {
+              "key": "referrer-policy",
+              "value": "no-referrer"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-dns-prefetch-control",
+              "value": "off"
+            },
+            {
+              "key": "x-download-options",
+              "value": "noopen"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-permitted-cross-domain-policies",
+              "value": "none"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1bc-9XoOHev16K60ot7llJ/blhwBQRQ\""
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-do-app-origin",
+              "value": "c9d9ff6f-e69c-11ec-b1dc-0c42a19a82a7"
+            },
+            {
+              "key": "x-do-orig-status",
+              "value": "200"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "__cf_bm=45UHKCROR7m5sGqTsB8rd876ECQ2lS0sj1AFCAu_2F4-1744315603-1.0.1.1-ME3WHjlJnfLN_45ITTpCaEN4B5xOMTb.pJd5DcsUik6kZ8m8UzZwyvoX47g7y8WAb1zMsIVj8JijNFyngAeDuj0KNAsnbWI._0ldlMlLfo0; path=/; expires=Thu, 10-Apr-25 20:36:43 GMT; domain=.demo.api.haroldwaste.com; HttpOnly; Secure; SameSite=None"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "92e4ddc3ab333a26-BOM"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              34,
+              58,
+              123,
+              34,
+              116,
+              111,
+              107,
+              101,
+              110,
+              34,
+              58,
+              34,
+              101,
+              121,
+              74,
+              104,
+              98,
+              71,
+              99,
+              105,
+              79,
+              105,
+              74,
+              73,
+              85,
+              122,
+              73,
+              49,
+              78,
+              105,
+              73,
+              115,
+              73,
+              110,
+              82,
+              53,
+              99,
+              67,
+              73,
+              54,
+              73,
+              107,
+              112,
+              88,
+              86,
+              67,
+              74,
+              57,
+              46,
+              101,
+              121,
+              74,
+              108,
+              98,
+              87,
+              70,
+              112,
+              98,
+              67,
+              73,
+              54,
+              73,
+              110,
+              70,
+              104,
+              81,
+              71,
+              112,
+              49,
+              98,
+              71,
+              86,
+              122,
+              89,
+              87,
+              107,
+              117,
+              89,
+              50,
+              57,
+              116,
+              73,
+              105,
+              119,
+              105,
+              90,
+              87,
+              49,
+              104,
+              97,
+              87,
+              120,
+              84,
+              97,
+              87,
+              100,
+              117,
+              89,
+              88,
+              82,
+              49,
+              99,
+              109,
+              85,
+              105,
+              79,
+              109,
+              53,
+              49,
+              98,
+              71,
+              119,
+              115,
+              73,
+              109,
+              86,
+              117,
+              89,
+              87,
+              74,
+              115,
+              90,
+              86,
+              66,
+              108,
+              99,
+              109,
+              49,
+              112,
+              100,
+              71,
+              108,
+              118,
+              73,
+              106,
+              112,
+              117,
+              100,
+              87,
+              120,
+              115,
+              76,
+              67,
+              74,
+              109,
+              97,
+              88,
+              74,
+              122,
+              100,
+              69,
+              53,
+              104,
+              98,
+              87,
+              85,
+              105,
+              79,
+              105,
+              74,
+              82,
+              81,
+              83,
+              73,
+              115,
+              73,
+              109,
+              108,
+              107,
+              73,
+              106,
+              111,
+              48,
+              78,
+              84,
+              81,
+              115,
+              73,
+              109,
+              108,
+              122,
+              82,
+              88,
+              104,
+              48,
+              90,
+              88,
+              74,
+              117,
+              89,
+              87,
+              119,
+              105,
+              79,
+              109,
+              53,
+              49,
+              98,
+              71,
+              119,
+              115,
+              73,
+              109,
+              120,
+              104,
+              98,
+              109,
+              100,
+              49,
+              89,
+              87,
+              100,
+              108,
+              73,
+              106,
+              111,
+              105,
+              82,
+              85,
+              52,
+              105,
+              76,
+              67,
+              74,
+              115,
+              89,
+              88,
+              78,
+              48,
+              84,
+              109,
+              70,
+              116,
+              90,
+              83,
+              73,
+              54,
+              73,
+              107,
+              112,
+              49,
+              98,
+              71,
+              86,
+              122,
+              73,
+              105,
+              119,
+              105,
+              98,
+              51,
+              74,
+              110,
+              89,
+              87,
+              53,
+              112,
+              101,
+              109,
+              70,
+              48,
+              97,
+              87,
+              57,
+              117,
+              83,
+              87,
+              81,
+              105,
+              79,
+              105,
+              74,
+              107,
+              90,
+              87,
+              49,
+              118,
+              88,
+              51,
+              100,
+              116,
+              88,
+              50,
+              120,
+              118,
+              100,
+              72,
+              74,
+              102,
+              90,
+              88,
+              104,
+              48,
+              99,
+              105,
+              73,
+              115,
+              73,
+              110,
+              74,
+              118,
+              98,
+              71,
+              86,
+              122,
+              73,
+              106,
+              112,
+              98,
+              88,
+              83,
+              119,
+              105,
+              100,
+              87,
+              108,
+              107,
+              73,
+              106,
+              111,
+              105,
+              79,
+              87,
+              69,
+              51,
+              77,
+              68,
+              73,
+              50,
+              79,
+              71,
+              85,
+              105,
+              76,
+              67,
+              74,
+              50,
+              97,
+              87,
+              86,
+              51,
+              82,
+              51,
+              74,
+              118,
+              100,
+              88,
+              65,
+              105,
+              79,
+              109,
+              53,
+              49,
+              98,
+              71,
+              119,
+              115,
+              73,
+              109,
+              108,
+              104,
+              100,
+              67,
+              73,
+              54,
+              77,
+              84,
+              99,
+              48,
+              78,
+              68,
+              77,
+              120,
+              78,
+              84,
+              89,
+              119,
+              77,
+              51,
+              48,
+              46,
+              84,
+              97,
+              90,
+              114,
+              105,
+              88,
+              51,
+              106,
+              117,
+              90,
+              112,
+              109,
+              86,
+              90,
+              115,
+              76,
+              48,
+              69,
+              117,
+              90,
+              52,
+              83,
+              68,
+              95,
+              65,
+              108,
+              68,
+              84,
+              102,
+              104,
+              69,
+              69,
+              105,
+              51,
+              82,
+              75,
+              51,
+              121,
+              73,
+              66,
+              49,
+              90,
+              77,
+              34,
+              125,
+              125,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 969,
+          "responseSize": 444
+        },
+        "id": "a406d13b-5ce3-4767-b4ba-f18cab1bd50a",
+        "assertions": [
+          {
+            "assertion": "Login success - Status code is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Login success - Token is returned",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "7428e717-747d-40bd-a905-c0f0b5852fb5",
+          "length": 3,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "7c94987d-eec6-4f32-acb3-d96c3fa0e836"
+        },
+        "item": {
+          "id": "dfe129c5-3e35-4104-8dcf-886f84aa0ade",
+          "name": "Login - Failure",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "demo",
+                "api",
+                "haroldwaste",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "accept-language",
+                "value": "en-US,en;q=0.9"
+              },
+              {
+                "key": "authorization",
+                "value": ""
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              },
+              {
+                "key": "client-name",
+                "value": "web"
+              },
+              {
+                "key": "client-tz",
+                "value": "Asia/Calcutta"
+              },
+              {
+                "key": "client-version",
+                "value": "1.0.7"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              },
+              {
+                "key": "origin",
+                "value": "https://demo.haroldwaste.com"
+              },
+              {
+                "key": "pragma",
+                "value": "no-cache"
+              },
+              {
+                "key": "priority",
+                "value": "u=1, i"
+              },
+              {
+                "key": "referer",
+                "value": "https://demo.haroldwaste.com/"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              },
+              {
+                "key": "sec-fetch-dest",
+                "value": "empty"
+              },
+              {
+                "key": "sec-fetch-mode",
+                "value": "cors"
+              },
+              {
+                "key": "sec-fetch-site",
+                "value": "same-site"
+              },
+              {
+                "key": "user-agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+                "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\": \"wrongpass\"\n}\n"
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "4b627b92-b497-458b-8b4a-208bf7939c4b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"Login failed - Invalid credentials\", function () {",
+                  "  const res = pm.response.json();",
+                  "  pm.expect(res.errors[0].message).to.include(\"Invalid credentials\"); // Error message may vary",
+                  "});",
+                  ""
+                ],
+                "_lastExecutionId": "2127a340-1d30-4e1f-8406-bca23b70ce90"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "graphql"
+            ],
+            "host": [
+              "demo",
+              "api",
+              "haroldwaste",
+              "com"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "accept",
+              "value": "*/*"
+            },
+            {
+              "key": "accept-language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "key": "authorization",
+              "value": ""
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "client-name",
+              "value": "web"
+            },
+            {
+              "key": "client-tz",
+              "value": "Asia/Calcutta"
+            },
+            {
+              "key": "client-version",
+              "value": "1.0.7"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "origin",
+              "value": "https://demo.haroldwaste.com"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "key": "referer",
+              "value": "https://demo.haroldwaste.com/"
+            },
+            {
+              "key": "sec-ch-ua",
+              "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+            },
+            {
+              "key": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "key": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "key": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "key": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "key": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "key": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+            },
+            {
+              "key": "Postman-Token",
+              "value": "53f4e93a-b8e5-4eb1-9bf0-b709b21a6926",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "demo.api.haroldwaste.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "205",
+              "system": true
+            },
+            {
+              "key": "Cookie",
+              "value": "__cf_bm=45UHKCROR7m5sGqTsB8rd876ECQ2lS0sj1AFCAu_2F4-1744315603-1.0.1.1-ME3WHjlJnfLN_45ITTpCaEN4B5xOMTb.pJd5DcsUik6kZ8m8UzZwyvoX47g7y8WAb1zMsIVj8JijNFyngAeDuj0KNAsnbWI._0ldlMlLfo0",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "graphql",
+            "graphql": {
+              "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+              "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\": \"wrongpass\"\n}\n"
+            }
+          }
+        },
+        "response": {
+          "id": "1ca61667-c157-48c8-a8e0-deddf7bcb5b5",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 10 Apr 2025 20:06:43 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "cross-origin-opener-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "cross-origin-resource-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "origin-agent-cluster",
+              "value": "?1"
+            },
+            {
+              "key": "referrer-policy",
+              "value": "no-referrer"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-dns-prefetch-control",
+              "value": "off"
+            },
+            {
+              "key": "x-download-options",
+              "value": "noopen"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-permitted-cross-domain-policies",
+              "value": "none"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"142-03h938g8xQLfZN9l53tTyPlMicM\""
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-do-app-origin",
+              "value": "c9d9ff6f-e69c-11ec-b1dc-0c42a19a82a7"
+            },
+            {
+              "key": "x-do-orig-status",
+              "value": "200"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "92e4ddc99e703a26-BOM"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              115,
+              34,
+              58,
+              91,
+              123,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              87,
+              82,
+              79,
+              78,
+              71,
+              95,
+              67,
+              82,
+              69,
+              68,
+              69,
+              78,
+              84,
+              73,
+              65,
+              76,
+              83,
+              34,
+              44,
+              34,
+              108,
+              111,
+              99,
+              97,
+              116,
+              105,
+              111,
+              110,
+              115,
+              34,
+              58,
+              91,
+              123,
+              34,
+              108,
+              105,
+              110,
+              101,
+              34,
+              58,
+              50,
+              44,
+              34,
+              99,
+              111,
+              108,
+              117,
+              109,
+              110,
+              34,
+              58,
+              51,
+              125,
+              93,
+              44,
+              34,
+              112,
+              97,
+              116,
+              104,
+              34,
+              58,
+              91,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              34,
+              93,
+              44,
+              34,
+              101,
+              120,
+              116,
+              101,
+              110,
+              115,
+              105,
+              111,
+              110,
+              115,
+              34,
+              58,
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              34,
+              85,
+              78,
+              65,
+              85,
+              84,
+              72,
+              69,
+              78,
+              84,
+              73,
+              67,
+              65,
+              84,
+              69,
+              68,
+              34,
+              44,
+              34,
+              115,
+              116,
+              97,
+              99,
+              107,
+              116,
+              114,
+              97,
+              99,
+              101,
+              34,
+              58,
+              91,
+              34,
+              71,
+              114,
+              97,
+              112,
+              104,
+              81,
+              76,
+              69,
+              114,
+              114,
+              111,
+              114,
+              58,
+              32,
+              87,
+              82,
+              79,
+              78,
+              71,
+              95,
+              67,
+              82,
+              69,
+              68,
+              69,
+              78,
+              84,
+              73,
+              65,
+              76,
+              83,
+              34,
+              44,
+              34,
+              32,
+              32,
+              32,
+              32,
+              97,
+              116,
+              32,
+              110,
+              101,
+              119,
+              32,
+              114,
+              32,
+              40,
+              47,
+              117,
+              115,
+              114,
+              47,
+              115,
+              114,
+              99,
+              47,
+              97,
+              112,
+              112,
+              47,
+              100,
+              105,
+              115,
+              116,
+              47,
+              115,
+              101,
+              114,
+              118,
+              101,
+              114,
+              46,
+              106,
+              115,
+              58,
+              54,
+              53,
+              56,
+              58,
+              50,
+              51,
+              52,
+              57,
+              57,
+              41,
+              34,
+              44,
+              34,
+              32,
+              32,
+              32,
+              32,
+              97,
+              116,
+              32,
+              72,
+              109,
+              46,
+              108,
+              111,
+              103,
+              105,
+              110,
+              32,
+              40,
+              47,
+              117,
+              115,
+              114,
+              47,
+              115,
+              114,
+              99,
+              47,
+              97,
+              112,
+              112,
+              47,
+              100,
+              105,
+              115,
+              116,
+              47,
+              115,
+              101,
+              114,
+              118,
+              101,
+              114,
+              46,
+              106,
+              115,
+              58,
+              54,
+              51,
+              56,
+              58,
+              53,
+              52,
+              56,
+              49,
+              50,
+              41,
+              34,
+              93,
+              125,
+              125,
+              93,
+              44,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              108,
+              111,
+              103,
+              105,
+              110,
+              34,
+              58,
+              110,
+              117,
+              108,
+              108,
+              125,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 338,
+          "responseSize": 322
+        },
+        "id": "dfe129c5-3e35-4104-8dcf-886f84aa0ade",
+        "assertions": [
+          {
+            "assertion": "Login failed - Invalid credentials",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Login failed - Invalid credentials",
+              "message": "expected 'WRONG_CREDENTIALS' to include 'Invalid credentials'",
+              "stack": "AssertionError: expected 'WRONG_CREDENTIALS' to include 'Invalid credentials'\n   at Object.eval sandbox-script.js:1:2)"
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "debd4a45-6468-4f21-9a3a-fc6579df5e38",
+          "length": 3,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "12329f25-c44c-4014-b46d-b0e8a8bf474c"
+        },
+        "item": {
+          "id": "af5588c2-4de4-4719-9984-fb91b5e5e1e9",
+          "name": "New Request",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "demo",
+                "api",
+                "haroldwaste",
+                "com"
+              ],
+              "query": [
+                {
+                  "key": "operationName",
+                  "value": "purchaseMonthToDate"
+                },
+                {
+                  "key": "variables",
+                  "value": "%7B%22input%22%3A%7B%22filters%22%3A%7B%22destinationId%22%3Anull%2C%22incoterms%22%3A%5B%5D%2C%22statuses%22%3A%5B%22CONFIRMED%22%5D%2C%22type%22%3A%22BUY%22%2C%22isWM%22%3Afalse%2C%22isWarehouse%22%3Afalse%7D%2C%22targetVolume%22%3A%22T%22%7D%7D"
+                },
+                {
+                  "key": "extensions",
+                  "value": "%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22b360cff8c26c97b88378da1dc898f6a562f443e619aa259bec7d835632f6b0eb%22%7D%7D"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "accept-language",
+                "value": "en-US,en;q=0.9"
+              },
+              {
+                "key": "authorization",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDI3ODMwOX0.6YaSOF-0CWmguiMrny_rtwUuQVzAySvUJblfYAUgbYE"
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              },
+              {
+                "key": "client-name",
+                "value": "web demo_wm_lotr_extr"
+              },
+              {
+                "key": "client-tz",
+                "value": "Asia/Calcutta"
+              },
+              {
+                "key": "client-version",
+                "value": "1.0.7"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              },
+              {
+                "key": "origin",
+                "value": "https://demo.haroldwaste.com"
+              },
+              {
+                "key": "pragma",
+                "value": "no-cache"
+              },
+              {
+                "key": "priority",
+                "value": "u=1, i"
+              },
+              {
+                "key": "referer",
+                "value": "https://demo.haroldwaste.com/"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              },
+              {
+                "key": "sec-fetch-dest",
+                "value": "empty"
+              },
+              {
+                "key": "sec-fetch-mode",
+                "value": "cors"
+              },
+              {
+                "key": "sec-fetch-site",
+                "value": "same-site"
+              },
+              {
+                "key": "user-agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "graphql"
+            ],
+            "host": [
+              "demo",
+              "api",
+              "haroldwaste",
+              "com"
+            ],
+            "query": [
+              {
+                "key": "operationName",
+                "value": "purchaseMonthToDate"
+              },
+              {
+                "key": "variables",
+                "value": "%7B%22input%22%3A%7B%22filters%22%3A%7B%22destinationId%22%3Anull%2C%22incoterms%22%3A%5B%5D%2C%22statuses%22%3A%5B%22CONFIRMED%22%5D%2C%22type%22%3A%22BUY%22%2C%22isWM%22%3Afalse%2C%22isWarehouse%22%3Afalse%7D%2C%22targetVolume%22%3A%22T%22%7D%7D"
+              },
+              {
+                "key": "extensions",
+                "value": "%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22b360cff8c26c97b88378da1dc898f6a562f443e619aa259bec7d835632f6b0eb%22%7D%7D"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "accept",
+              "value": "*/*"
+            },
+            {
+              "key": "accept-language",
+              "value": "en-US,en;q=0.9"
+            },
+            {
+              "key": "authorization",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDI3ODMwOX0.6YaSOF-0CWmguiMrny_rtwUuQVzAySvUJblfYAUgbYE"
+            },
+            {
+              "key": "cache-control",
+              "value": "no-cache"
+            },
+            {
+              "key": "client-name",
+              "value": "web demo_wm_lotr_extr"
+            },
+            {
+              "key": "client-tz",
+              "value": "Asia/Calcutta"
+            },
+            {
+              "key": "client-version",
+              "value": "1.0.7"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "origin",
+              "value": "https://demo.haroldwaste.com"
+            },
+            {
+              "key": "pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "priority",
+              "value": "u=1, i"
+            },
+            {
+              "key": "referer",
+              "value": "https://demo.haroldwaste.com/"
+            },
+            {
+              "key": "sec-ch-ua",
+              "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+            },
+            {
+              "key": "sec-ch-ua-mobile",
+              "value": "?0"
+            },
+            {
+              "key": "sec-ch-ua-platform",
+              "value": "\"macOS\""
+            },
+            {
+              "key": "sec-fetch-dest",
+              "value": "empty"
+            },
+            {
+              "key": "sec-fetch-mode",
+              "value": "cors"
+            },
+            {
+              "key": "sec-fetch-site",
+              "value": "same-site"
+            },
+            {
+              "key": "user-agent",
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+            },
+            {
+              "key": "Postman-Token",
+              "value": "6dc99c5c-49a5-46b2-8911-d6804505294e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "demo.api.haroldwaste.com",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Cookie",
+              "value": "__cf_bm=45UHKCROR7m5sGqTsB8rd876ECQ2lS0sj1AFCAu_2F4-1744315603-1.0.1.1-ME3WHjlJnfLN_45ITTpCaEN4B5xOMTb.pJd5DcsUik6kZ8m8UzZwyvoX47g7y8WAb1zMsIVj8JijNFyngAeDuj0KNAsnbWI._0ldlMlLfo0",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "f7987e64-8250-44ae-bed9-206681dece19",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 10 Apr 2025 20:06:45 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "*"
+            },
+            {
+              "key": "cross-origin-opener-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "cross-origin-resource-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "origin-agent-cluster",
+              "value": "?1"
+            },
+            {
+              "key": "referrer-policy",
+              "value": "no-referrer"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-dns-prefetch-control",
+              "value": "off"
+            },
+            {
+              "key": "x-download-options",
+              "value": "noopen"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-permitted-cross-domain-policies",
+              "value": "none"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-store"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2fc-xVeqqQLPG2c8LcjazLi7VVgiBBE\""
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-do-app-origin",
+              "value": "c9d9ff6f-e69c-11ec-b1dc-0c42a19a82a7"
+            },
+            {
+              "key": "x-do-orig-status",
+              "value": "200"
+            },
+            {
+              "key": "CF-Cache-Status",
+              "value": "MISS"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "92e4ddcbef8b3a26-BOM"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              100,
+              97,
+              116,
+              97,
+              34,
+              58,
+              123,
+              34,
+              112,
+              117,
+              114,
+              99,
+              104,
+              97,
+              115,
+              101,
+              77,
+              111,
+              110,
+              116,
+              104,
+              84,
+              111,
+              68,
+              97,
+              116,
+              101,
+              34,
+              58,
+              123,
+              34,
+              112,
+              117,
+              114,
+              99,
+              104,
+              97,
+              115,
+              101,
+              100,
+              34,
+              58,
+              123,
+              34,
+              113,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              58,
+              53,
+              52,
+              55,
+              51,
+              56,
+              52,
+              52,
+              48,
+              53,
+              46,
+              50,
+              55,
+              57,
+              50,
+              52,
+              55,
+              50,
+              44,
+              34,
+              118,
+              111,
+              108,
+              117,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              34,
+              44,
+              34,
+              95,
+              95,
+              116,
+              121,
+              112,
+              101,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              81,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              125,
+              44,
+              34,
+              97,
+              108,
+              108,
+              111,
+              99,
+              97,
+              116,
+              101,
+              100,
+              34,
+              58,
+              123,
+              34,
+              113,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              58,
+              50,
+              49,
+              49,
+              49,
+              51,
+              51,
+              46,
+              54,
+              54,
+              49,
+              50,
+              50,
+              57,
+              53,
+              53,
+              56,
+              56,
+              52,
+              44,
+              34,
+              118,
+              111,
+              108,
+              117,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              34,
+              44,
+              34,
+              95,
+              95,
+              116,
+              121,
+              112,
+              101,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              81,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              125,
+              44,
+              34,
+              98,
+              111,
+              111,
+              107,
+              101,
+              100,
+              34,
+              58,
+              123,
+              34,
+              113,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              58,
+              54,
+              54,
+              48,
+              57,
+              48,
+              46,
+              50,
+              55,
+              54,
+              49,
+              56,
+              48,
+              56,
+              51,
+              56,
+              52,
+              49,
+              44,
+              34,
+              118,
+              111,
+              108,
+              117,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              34,
+              44,
+              34,
+              95,
+              95,
+              116,
+              121,
+              112,
+              101,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              81,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              125,
+              44,
+              34,
+              112,
+              108,
+              97,
+              110,
+              110,
+              101,
+              100,
+              34,
+              58,
+              123,
+              34,
+              113,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              58,
+              49,
+              53,
+              49,
+              52,
+              50,
+              49,
+              56,
+              46,
+              53,
+              48,
+              52,
+              51,
+              48,
+              51,
+              52,
+              56,
+              50,
+              49,
+              44,
+              34,
+              118,
+              111,
+              108,
+              117,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              34,
+              44,
+              34,
+              95,
+              95,
+              116,
+              121,
+              112,
+              101,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              81,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              125,
+              44,
+              34,
+              108,
+              111,
+              97,
+              100,
+              101,
+              100,
+              34,
+              58,
+              123,
+              34,
+              113,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              58,
+              57,
+              50,
+              49,
+              50,
+              53,
+              46,
+              54,
+              55,
+              51,
+              49,
+              55,
+              53,
+              57,
+              48,
+              55,
+              56,
+              52,
+              44,
+              34,
+              118,
+              111,
+              108,
+              117,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              34,
+              44,
+              34,
+              95,
+              95,
+              116,
+              121,
+              112,
+              101,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              81,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              125,
+              44,
+              34,
+              117,
+              110,
+              112,
+              108,
+              97,
+              110,
+              110,
+              101,
+              100,
+              34,
+              58,
+              123,
+              34,
+              113,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              58,
+              53,
+              52,
+              53,
+              56,
+              55,
+              48,
+              49,
+              56,
+              54,
+              46,
+              55,
+              55,
+              52,
+              57,
+              52,
+              51,
+              55,
+              44,
+              34,
+              118,
+              111,
+              108,
+              117,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              34,
+              44,
+              34,
+              95,
+              95,
+              116,
+              121,
+              112,
+              101,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              81,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              125,
+              44,
+              34,
+              100,
+              101,
+              108,
+              105,
+              118,
+              101,
+              114,
+              101,
+              100,
+              34,
+              58,
+              123,
+              34,
+              113,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              58,
+              55,
+              52,
+              57,
+              55,
+              56,
+              46,
+              56,
+              49,
+              48,
+              48,
+              56,
+              56,
+              48,
+              49,
+              53,
+              49,
+              53,
+              44,
+              34,
+              118,
+              111,
+              108,
+              117,
+              109,
+              101,
+              34,
+              58,
+              34,
+              84,
+              34,
+              44,
+              34,
+              95,
+              95,
+              116,
+              121,
+              112,
+              101,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              81,
+              117,
+              97,
+              110,
+              116,
+              105,
+              116,
+              121,
+              34,
+              125,
+              44,
+              34,
+              97,
+              108,
+              108,
+              111,
+              99,
+              97,
+              116,
+              101,
+              100,
+              73,
+              110,
+              67,
+              116,
+              110,
+              34,
+              58,
+              50,
+              51,
+              49,
+              55,
+              44,
+              34,
+              98,
+              111,
+              111,
+              107,
+              101,
+              100,
+              73,
+              110,
+              67,
+              116,
+              110,
+              34,
+              58,
+              51,
+              53,
+              51,
+              44,
+              34,
+              108,
+              111,
+              97,
+              100,
+              101,
+              100,
+              73,
+              110,
+              67,
+              116,
+              110,
+              34,
+              58,
+              54,
+              48,
+              57,
+              44,
+              34,
+              112,
+              108,
+              97,
+              110,
+              110,
+              101,
+              100,
+              73,
+              110,
+              67,
+              116,
+              110,
+              34,
+              58,
+              54,
+              51,
+              57,
+              53,
+              44,
+              34,
+              112,
+              117,
+              114,
+              99,
+              104,
+              97,
+              115,
+              101,
+              100,
+              73,
+              110,
+              67,
+              116,
+              110,
+              34,
+              58,
+              54,
+              51,
+              57,
+              53,
+              44,
+              34,
+              117,
+              110,
+              112,
+              108,
+              97,
+              110,
+              110,
+              101,
+              100,
+              73,
+              110,
+              67,
+              116,
+              110,
+              34,
+              58,
+              48,
+              44,
+              34,
+              100,
+              101,
+              108,
+              105,
+              118,
+              101,
+              114,
+              101,
+              100,
+              73,
+              110,
+              67,
+              116,
+              110,
+              34,
+              58,
+              51,
+              54,
+              57,
+              44,
+              34,
+              95,
+              95,
+              116,
+              121,
+              112,
+              101,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              80,
+              117,
+              114,
+              99,
+              104,
+              97,
+              115,
+              101,
+              77,
+              111,
+              110,
+              116,
+              104,
+              84,
+              111,
+              68,
+              97,
+              116,
+              101,
+              34,
+              125,
+              125,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2140,
+          "responseSize": 764
+        },
+        "id": "af5588c2-4de4-4719-9984-fb91b5e5e1e9"
+      }
+    ],
+    "transfers": {
+      "responseTotal": 1530
+    },
+    "failures": [
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "Login failed - Invalid credentials",
+          "message": "expected 'WRONG_CREDENTIALS' to include 'Invalid credentials'",
+          "stack": "AssertionError: expected 'WRONG_CREDENTIALS' to include 'Invalid credentials'\n   at Object.eval sandbox-script.js:1:2)",
+          "checksum": "ed45f23372503c59ec5e4b69e0699066",
+          "id": "90c886c9-0947-4507-98fb-126b51a654ad",
+          "timestamp": 1744315603742,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 2,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "dfe129c5-3e35-4104-8dcf-886f84aa0ade",
+          "name": "Login - Failure",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "demo",
+                "api",
+                "haroldwaste",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*"
+              },
+              {
+                "key": "accept-language",
+                "value": "en-US,en;q=0.9"
+              },
+              {
+                "key": "authorization",
+                "value": ""
+              },
+              {
+                "key": "cache-control",
+                "value": "no-cache"
+              },
+              {
+                "key": "client-name",
+                "value": "web"
+              },
+              {
+                "key": "client-tz",
+                "value": "Asia/Calcutta"
+              },
+              {
+                "key": "client-version",
+                "value": "1.0.7"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              },
+              {
+                "key": "origin",
+                "value": "https://demo.haroldwaste.com"
+              },
+              {
+                "key": "pragma",
+                "value": "no-cache"
+              },
+              {
+                "key": "priority",
+                "value": "u=1, i"
+              },
+              {
+                "key": "referer",
+                "value": "https://demo.haroldwaste.com/"
+              },
+              {
+                "key": "sec-ch-ua",
+                "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+              },
+              {
+                "key": "sec-ch-ua-mobile",
+                "value": "?0"
+              },
+              {
+                "key": "sec-ch-ua-platform",
+                "value": "\"macOS\""
+              },
+              {
+                "key": "sec-fetch-dest",
+                "value": "empty"
+              },
+              {
+                "key": "sec-fetch-mode",
+                "value": "cors"
+              },
+              {
+                "key": "sec-fetch-site",
+                "value": "same-site"
+              },
+              {
+                "key": "user-agent",
+                "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+                "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\": \"wrongpass\"\n}\n"
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "4b627b92-b497-458b-8b4a-208bf7939c4b",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"Login failed - Invalid credentials\", function () {",
+                  "  const res = pm.response.json();",
+                  "  pm.expect(res.errors[0].message).to.include(\"Invalid credentials\"); // Error message may vary",
+                  "});",
+                  ""
+                ],
+                "_lastExecutionId": "2127a340-1d30-4e1f-8406-bca23b70ce90"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "064742e7-fa1a-4c5f-bb2d-29ae0a60813c",
+            "exporter_id": "43883062"
+          },
+          "item": [
+            {
+              "id": "a406d13b-5ce3-4767-b4ba-f18cab1bd50a",
+              "name": "Login - success",
+              "request": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "demo",
+                    "api",
+                    "haroldwaste",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "accept-language",
+                    "value": "en-US,en;q=0.9"
+                  },
+                  {
+                    "key": "authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "cache-control",
+                    "value": "no-cache"
+                  },
+                  {
+                    "key": "client-name",
+                    "value": "web"
+                  },
+                  {
+                    "key": "client-tz",
+                    "value": "Asia/Calcutta"
+                  },
+                  {
+                    "key": "client-version",
+                    "value": "1.0.7"
+                  },
+                  {
+                    "key": "content-type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "origin",
+                    "value": "https://demo.haroldwaste.com"
+                  },
+                  {
+                    "key": "pragma",
+                    "value": "no-cache"
+                  },
+                  {
+                    "key": "priority",
+                    "value": "u=1, i"
+                  },
+                  {
+                    "key": "referer",
+                    "value": "https://demo.haroldwaste.com/"
+                  },
+                  {
+                    "key": "sec-ch-ua",
+                    "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+                  },
+                  {
+                    "key": "sec-ch-ua-mobile",
+                    "value": "?0"
+                  },
+                  {
+                    "key": "sec-ch-ua-platform",
+                    "value": "\"macOS\""
+                  },
+                  {
+                    "key": "sec-fetch-dest",
+                    "value": "empty"
+                  },
+                  {
+                    "key": "sec-fetch-mode",
+                    "value": "cors"
+                  },
+                  {
+                    "key": "sec-fetch-site",
+                    "value": "same-site"
+                  },
+                  {
+                    "key": "user-agent",
+                    "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "graphql",
+                  "graphql": {
+                    "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+                    "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\":\"QaJULES2023!\"\n}\n"
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "86933495-173b-4c41-ab15-b766bff26b1b",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"Login success - Status code is 200\", function () {",
+                      "  pm.response.to.have.status(200);",
+                      "});",
+                      "",
+                      "pm.test(\"Login success - Token is returned\", function () {",
+                      "  const res = pm.response.json();",
+                      "  pm.expect(res.data.login.token).to.be.a(\"string\");",
+                      "  pm.environment.set(\"token\", res.data.login.token); // Save token for next requests",
+                      "});",
+                      ""
+                    ],
+                    "_lastExecutionId": "8433c899-e599-4a95-a568-53b681a2dd5f"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "dfe129c5-3e35-4104-8dcf-886f84aa0ade",
+              "name": "Login - Failure",
+              "request": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "demo",
+                    "api",
+                    "haroldwaste",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "accept-language",
+                    "value": "en-US,en;q=0.9"
+                  },
+                  {
+                    "key": "authorization",
+                    "value": ""
+                  },
+                  {
+                    "key": "cache-control",
+                    "value": "no-cache"
+                  },
+                  {
+                    "key": "client-name",
+                    "value": "web"
+                  },
+                  {
+                    "key": "client-tz",
+                    "value": "Asia/Calcutta"
+                  },
+                  {
+                    "key": "client-version",
+                    "value": "1.0.7"
+                  },
+                  {
+                    "key": "content-type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "origin",
+                    "value": "https://demo.haroldwaste.com"
+                  },
+                  {
+                    "key": "pragma",
+                    "value": "no-cache"
+                  },
+                  {
+                    "key": "priority",
+                    "value": "u=1, i"
+                  },
+                  {
+                    "key": "referer",
+                    "value": "https://demo.haroldwaste.com/"
+                  },
+                  {
+                    "key": "sec-ch-ua",
+                    "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+                  },
+                  {
+                    "key": "sec-ch-ua-mobile",
+                    "value": "?0"
+                  },
+                  {
+                    "key": "sec-ch-ua-platform",
+                    "value": "\"macOS\""
+                  },
+                  {
+                    "key": "sec-fetch-dest",
+                    "value": "empty"
+                  },
+                  {
+                    "key": "sec-fetch-mode",
+                    "value": "cors"
+                  },
+                  {
+                    "key": "sec-fetch-site",
+                    "value": "same-site"
+                  },
+                  {
+                    "key": "user-agent",
+                    "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "graphql",
+                  "graphql": {
+                    "query": "mutation Login($email: String!, $password: String!) {\n  login(email: $email, password: $password) {\n    token\n  }\n}\n",
+                    "variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\": \"wrongpass\"\n}\n"
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "4b627b92-b497-458b-8b4a-208bf7939c4b",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"Login failed - Invalid credentials\", function () {",
+                      "  const res = pm.response.json();",
+                      "  pm.expect(res.errors[0].message).to.include(\"Invalid credentials\"); // Error message may vary",
+                      "});",
+                      ""
+                    ],
+                    "_lastExecutionId": "2127a340-1d30-4e1f-8406-bca23b70ce90"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "af5588c2-4de4-4719-9984-fb91b5e5e1e9",
+              "name": "New Request",
+              "request": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "demo",
+                    "api",
+                    "haroldwaste",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "operationName",
+                      "value": "purchaseMonthToDate"
+                    },
+                    {
+                      "key": "variables",
+                      "value": "%7B%22input%22%3A%7B%22filters%22%3A%7B%22destinationId%22%3Anull%2C%22incoterms%22%3A%5B%5D%2C%22statuses%22%3A%5B%22CONFIRMED%22%5D%2C%22type%22%3A%22BUY%22%2C%22isWM%22%3Afalse%2C%22isWarehouse%22%3Afalse%7D%2C%22targetVolume%22%3A%22T%22%7D%7D"
+                    },
+                    {
+                      "key": "extensions",
+                      "value": "%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22b360cff8c26c97b88378da1dc898f6a562f443e619aa259bec7d835632f6b0eb%22%7D%7D"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "accept-language",
+                    "value": "en-US,en;q=0.9"
+                  },
+                  {
+                    "key": "authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDI3ODMwOX0.6YaSOF-0CWmguiMrny_rtwUuQVzAySvUJblfYAUgbYE"
+                  },
+                  {
+                    "key": "cache-control",
+                    "value": "no-cache"
+                  },
+                  {
+                    "key": "client-name",
+                    "value": "web demo_wm_lotr_extr"
+                  },
+                  {
+                    "key": "client-tz",
+                    "value": "Asia/Calcutta"
+                  },
+                  {
+                    "key": "client-version",
+                    "value": "1.0.7"
+                  },
+                  {
+                    "key": "content-type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "origin",
+                    "value": "https://demo.haroldwaste.com"
+                  },
+                  {
+                    "key": "pragma",
+                    "value": "no-cache"
+                  },
+                  {
+                    "key": "priority",
+                    "value": "u=1, i"
+                  },
+                  {
+                    "key": "referer",
+                    "value": "https://demo.haroldwaste.com/"
+                  },
+                  {
+                    "key": "sec-ch-ua",
+                    "value": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\""
+                  },
+                  {
+                    "key": "sec-ch-ua-mobile",
+                    "value": "?0"
+                  },
+                  {
+                    "key": "sec-ch-ua-platform",
+                    "value": "\"macOS\""
+                  },
+                  {
+                    "key": "sec-fetch-dest",
+                    "value": "empty"
+                  },
+                  {
+                    "key": "sec-fetch-mode",
+                    "value": "cors"
+                  },
+                  {
+                    "key": "sec-fetch-site",
+                    "value": "same-site"
+                  },
+                  {
+                    "key": "user-agent",
+                    "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36"
+                  }
+                ],
+                "method": "GET"
+              },
+              "response": [],
+              "event": []
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "064742e7-fa1a-4c5f-bb2d-29ae0a60813c",
+            "name": "julesai",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "ref": "7428e717-747d-40bd-a905-c0f0b5852fb5",
+          "length": 3,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "7c94987d-eec6-4f32-acb3-d96c3fa0e836",
+          "scriptId": "4b627b92-b497-458b-8b4a-208bf7939c4b",
+          "execution": "2127a340-1d30-4e1f-8406-bca23b70ce90"
+        }
+      }
+    ],
+    "error": null
+  }
+}
