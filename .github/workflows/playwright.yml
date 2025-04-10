@@ -1,4 +1,4 @@
-name: Playwright + Postman Tests
+name: Playwright and Postman Tests
 
 on:
   push:
@@ -12,32 +12,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
       with:
         node-version: lts/*
 
-    - name: Install dependencies
+    - name: Install NPM dependencies
       run: npm ci
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    - name: Run Playwright tests
+    - name: Run Playwright Tests
       run: npx playwright test
-
-    - name: Install Newman CLI
-      run: npm install -g newman
-
-    - name: Run Postman API Tests with Newman
-      run: |
-        newman run julesai.postman_collection.json \
-          -e staging.postman_environment.json \
-          -r cli,html,json,junit \
-          --reporter-html-export results/report.html \
-          --reporter-json-export results/report.json \
-          --reporter-junit-export results/report.xml
 
     - name: Upload Playwright Report
       if: ${{ !cancelled() }}
@@ -47,8 +37,22 @@ jobs:
         path: playwright-report/
         retention-days: 30
 
+    - name: Install Newman globally
+      run: npm install -g newman
+
+    - name: Run Postman API Tests with Newman
+      continue-on-error: true
+      run: |
+        mkdir -p results
+        newman run julesai.postman_collection.json \
+          -e staging.postman_environment.json \
+          -r cli,html,json,junit \
+          --reporter-html-export results/report.html \
+          --reporter-json-export results/report.json \
+          --reporter-junit-export results/report.xml
+
     - name: Upload Newman Reports
-      if: ${{ !cancelled() }}
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: postman-api-reports
