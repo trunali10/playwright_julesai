@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage.js';
-import loginData from '../data/loginData.json';
+import loginData from './data/loginData.json';
 
 test.describe('Login Tests', () => {
   loginData.forEach((creds, index) => {
