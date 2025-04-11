@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "064742e7-fa1a-4c5f-bb2d-29ae0a60813c",
 		"name": "julesai",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "43883062"
 	},
 	"item": [
@@ -116,19 +116,7 @@
 						"variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\":\"QaJULES2023!\"\n}\n"
 					}
 				},
-				"url": {
-					"raw": "https://demo.api.haroldwaste.com/graphql",
-					"protocol": "https",
-					"host": [
-						"demo",
-						"api",
-						"haroldwaste",
-						"com"
-					],
-					"path": [
-						"graphql"
-					]
-				}
+				"url": "https://demo.api.haroldwaste.com/graphql"
 			},
 			"response": []
 		},
@@ -237,24 +225,12 @@
 						"variables": "{\n  \"email\": \"qa@julesai.com\",\n  \"password\": \"wrongpass\"\n}\n"
 					}
 				},
-				"url": {
-					"raw": "https://demo.api.haroldwaste.com/graphql",
-					"protocol": "https",
-					"host": [
-						"demo",
-						"api",
-						"haroldwaste",
-						"com"
-					],
-					"path": [
-						"graphql"
-					]
-				}
+				"url": "https://demo.api.haroldwaste.com/graphql"
 			},
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "trial",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -362,6 +338,393 @@
 						}
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error handling-401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const errors = pm.response.json().errors;",
+							"pm.test(\"Should return NOT_AUTHENTICATED GraphQL error\", function () {",
+							"    pm.expect(errors[0].message).to.eql(\"NOT_AUTHENTICATED\");",
+							"});",
+							"const res = pm.response.json();",
+							"pm.test(\"Should not return data\", function () {",
+							"    pm.expect(res.data.agents).to.eql(null);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "fyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDM1NTU1Nn0.ucZOa8gpHpcM4p4DKllxd9NWbiAkDKjF9IBEO1-aFaw",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query Agents {\n  agents {\n    contacts {\n      id\n      email\n      firstName\n      lastName\n      phoneNumber\n    }\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": "https://demo.api.julesai.com/graphql"
+			},
+			"response": []
+		},
+		{
+			"name": "Error handling-400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"const res = pm.response.json();",
+							"pm.test(\"GraphQL error for invalid field\", function () {",
+							"    pm.expect(res.errors[0].message).to.include(\"Cannot query field\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDM1NTU1Nn0.ucZOa8gpHpcM4p4DKllxd9NWbiAkDKjF9IBEO1-aFaw",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query Agents {\n  agents {\n    contactss {\n      \n    }\n  }\n}\n",
+						"variables": ""
+					}
+				},
+				"url": "https://demo.api.julesai.com/graphql"
+			},
+			"response": []
+		},
+		{
+			"name": "Data Retrieval",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>ID</th>",
+							"        <th>Legal Name</th>",
+							"        <th>Email</th>",
+							"        <th>Phone Number</th>",
+							"    </tr>",
+							"    ",
+							"    {{#each response.data.providerChoices}}",
+							"        <tr>",
+							"            <td>{{id}}</td>",
+							"            <td>{{legalName}}</td>",
+							"            <td>{{email}}</td>",
+							"            <td>{{phoneNumber}}</td>",
+							"        </tr>",
+							"    {{/each}}",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    return { response: pm.response.json() }",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDM1ODU1NH0.l5XMgVo1trCJBkZd5wn6V5ZoFfUKPAhTI3X06IrlNj0"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operationName\": \"providerChoices\",\n    \"variables\": {\n        \"filters\": {\n            \"type\": \"AGENT\"\n        }\n    },\n    \"extensions\": {\n        \"persistedQuery\": {\n            \"version\": 1,\n            \"sha256Hash\": \"562c79f766fe581796dc3cbff2505116baa2af7d8234b2e6057dce949b5326cc\"\n        }\n    }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://demo.api.haroldwaste.com/graphql"
+			},
+			"response": [
+				{
+					"name": "Data Retrieval:",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDM1ODU1NH0.l5XMgVo1trCJBkZd5wn6V5ZoFfUKPAhTI3X06IrlNj0"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"operationName\": \"providerChoices\",\n    \"variables\": {\n        \"filters\": {\n            \"type\": \"AGENT\"\n        }\n    },\n    \"extensions\": {\n        \"persistedQuery\": {\n            \"version\": 1,\n            \"sha256Hash\": \"562c79f766fe581796dc3cbff2505116baa2af7d8234b2e6057dce949b5326cc\"\n        }\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://demo.api.haroldwaste.com/graphql"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Fri, 11 Apr 2025 08:05:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "cross-origin-opener-policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "cross-origin-resource-policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "origin-agent-cluster",
+							"value": "?1"
+						},
+						{
+							"key": "referrer-policy",
+							"value": "no-referrer"
+						},
+						{
+							"key": "strict-transport-security",
+							"value": "max-age=31536000; includeSubDomains"
+						},
+						{
+							"key": "x-content-type-options",
+							"value": "nosniff"
+						},
+						{
+							"key": "x-dns-prefetch-control",
+							"value": "off"
+						},
+						{
+							"key": "x-download-options",
+							"value": "noopen"
+						},
+						{
+							"key": "x-frame-options",
+							"value": "DENY"
+						},
+						{
+							"key": "x-permitted-cross-domain-policies",
+							"value": "none"
+						},
+						{
+							"key": "x-xss-protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-store"
+						},
+						{
+							"key": "etag",
+							"value": "W/\"5753-uL+iJmrvvoyDcKsLS75jw/fexrY\""
+						},
+						{
+							"key": "vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "x-do-app-origin",
+							"value": "c9d9ff6f-e69c-11ec-b1dc-0c42a19a82a7"
+						},
+						{
+							"key": "x-do-orig-status",
+							"value": "200"
+						},
+						{
+							"key": "cf-cache-status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "__cf_bm=7GmMHjDioFavFQbqYCGPDkQmW1tVz0XwE74PbL0KKL4-1744358753-1.0.1.1-X1lKmkPS4vxDRtyfM7CiMPKD2AyUclJ1YvXmNJaRhQvJH3Cnii35_ug2Em4X7VxaCu5wNL7.z4L5Gw1W7gOSHlsVLIVgl6qHSF4_uD9ZUKo; path=/; expires=Fri, 11-Apr-25 08:35:53 GMT; domain=.demo.api.haroldwaste.com; HttpOnly; Secure; SameSite=None"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "CF-RAY",
+							"value": "92e8fb3d9f5b46f2-BOM"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"providerChoices\": [\n            {\n                \"address\": \"Pune\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-12-22T05:32:55.622Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": \"abc@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"50_AGENT\",\n                \"identificationCode\": \"BIN:1234\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"abc trans\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"50\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:54321\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-22T05:32:55.622Z\",\n                \"value\": \"abc \",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"PUNE\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-12-20T14:16:02.759Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"PUNE\",\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"49_AGENT\",\n                \"identificationCode\": \"BIN:654312\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"ABCDE transports\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"49\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:675432\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-20T14:16:02.759Z\",\n                \"value\": \"ABCDE\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Mumbai, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2022-12-27T04:58:21.156Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Mumbai\",\n                \"customAddress2\": null,\n                \"email\": \"abcdef@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"51_AGENT\",\n                \"identificationCode\": \"BIG:123\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"ABCDEF Trans\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"51\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"ICE:3221\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-27T04:58:21.156Z\",\n                \"value\": \"ABCDEF\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pune\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-12-02T14:23:29.871Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": \"company@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"46_AGENT\",\n                \"identificationCode\": \"BIN:1234\",\n                \"industryCode\": null,\n                \"legalForm\": \"ABC123\",\n                \"legalName\": \"ABCD \",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"46\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:451671\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-02T14:23:29.871Z\",\n                \"value\": \"ABCD Transport\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"pune\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2023-01-25T13:49:05.708Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"pune\",\n                \"customAddress2\": null,\n                \"email\": \"abuzar1@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"61_AGENT\",\n                \"identificationCode\": \"BIN:112\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Abuzar Currier\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"61\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": \"IEC:121\",\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2023-01-25T13:49:05.708Z\",\n                \"value\": \"Abuzar\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Mumbai\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-12-20T14:13:02.961Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Mumbai\",\n                \"customAddress2\": null,\n                \"email\": \"acba@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"48_AGENT\",\n                \"identificationCode\": \"BIN:1234\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"AcBA trans\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"48\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:4321\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-20T14:13:02.961Z\",\n                \"value\": \"AcBA\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Chennai, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2023-01-06T12:28:21.394Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Chennai\",\n                \"customAddress2\": null,\n                \"email\": \"Adesh@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"58_AGENT\",\n                \"identificationCode\": \"BIN:11234\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Adesh Currier\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"58\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:123\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2023-01-06T12:28:21.394Z\",\n                \"value\": \"Adesh\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pune, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2023-01-06T12:30:16.357Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": \"aadil@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"59_AGENT\",\n                \"identificationCode\": \"BIN:11234\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Adil Currier\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"59\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:321\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2023-01-06T12:30:16.357Z\",\n                \"value\": \"Adil\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": null,\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2023-12-21T10:35:46.036Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": null,\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"94_AGENT\",\n                \"identificationCode\": null,\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"agent test\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"94\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2023-12-21T10:38:17.044Z\",\n                \"value\": \"agent test 2\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Hydrabad, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2022-12-27T06:51:19.832Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Hydrabad\",\n                \"customAddress2\": null,\n                \"email\": \"ajay@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"53_AGENT\",\n                \"identificationCode\": \"AJ:1234\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Ajay Currier\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"53\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:1243\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-27T06:51:19.832Z\",\n                \"value\": \"Ajay\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pune, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2023-01-06T11:43:36.140Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": \"akshay@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"54_AGENT\",\n                \"identificationCode\": \"BIN:1234\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Akshay Trans\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"54\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:1122\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2023-01-06T11:43:36.140Z\",\n                \"value\": \"Akshay\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pune\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-12-20T13:26:14.320Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": \"ashish@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"47_AGENT\",\n                \"identificationCode\": \"BIN:12345\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Ashish Transport\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"47\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:432156\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-20T13:26:14.320Z\",\n                \"value\": \"Ashish\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pimpri, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2023-01-25T13:37:22.685Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pimpri\",\n                \"customAddress2\": null,\n                \"email\": \"bha@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"60_AGENT\",\n                \"identificationCode\": \"BIN:11221\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Bhavna Trance\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"60\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": \"121\",\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2023-01-25T13:37:22.685Z\",\n                \"value\": \"Bhavna\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Chennai, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2022-12-27T05:06:02.117Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Chennai\",\n                \"customAddress2\": null,\n                \"email\": \"brijesh@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"52_AGENT\",\n                \"identificationCode\": \"ABC:1233\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Brijesh Trans\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"52\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"BB:1234\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-27T05:06:02.117Z\",\n                \"value\": \"Brijesh\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Chennai, British Indian Ocean Territory\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"British Indian Ocean Territory\",\n                \"createdAt\": \"2023-01-06T12:26:15.702Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Chennai\",\n                \"customAddress2\": null,\n                \"email\": \"brayo@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"55_AGENT\",\n                \"identificationCode\": \"BIN:1221\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Broyesh trans\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"55\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:5421\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2023-01-06T12:26:15.702Z\",\n                \"value\": \"Broyesh\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"SomeLondon, Street #12, London, London, United Kingdom\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": \"London\",\n                \"country\": \"United Kingdom\",\n                \"createdAt\": \"2025-04-10T21:49:35.369Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"SomeLondon, Street #12\",\n                \"customAddress2\": null,\n                \"email\": \"JamesBond@007.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"107_AGENT\",\n                \"identificationCode\": \"BIN:461754623\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"James Bond\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"107\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": \"44153641\",\n                \"registrationCode\": null,\n                \"state\": \"London\",\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2025-04-10T21:49:35.369Z\",\n                \"value\": \"James 007\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": null,\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2024-06-08T15:13:48.776Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": null,\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"103_AGENT\",\n                \"identificationCode\": \"ID122\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"joice carrie3\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"103\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": \"LID122\",\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2024-06-08T15:13:48.776Z\",\n                \"value\": \"joice carrie3\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"123 street, coimbatore, TN, 873682, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": \"coimbatore\",\n                \"country\": \"India\",\n                \"createdAt\": \"2024-06-08T11:48:47.380Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"123 street\",\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"95_AGENT\",\n                \"identificationCode\": \"ID123\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"joice carrier\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"95\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": \"LID123\",\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": \"TN\",\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2024-06-08T11:48:47.380Z\",\n                \"value\": \"joice carrier\",\n                \"zipCode\": \"873682\",\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"123 street, coimbatore, TN, 873682, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": \"coimbatore\",\n                \"country\": \"India\",\n                \"createdAt\": \"2024-06-08T14:53:17.947Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"123 street\",\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"101_AGENT\",\n                \"identificationCode\": \"ID123\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"joice carrier1\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"101\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": \"LID123\",\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": \"TN\",\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2024-06-08T14:53:17.947Z\",\n                \"value\": \"joice carrier1\",\n                \"zipCode\": \"873682\",\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"123 street, coimbatore, TN, 873682, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": \"coimbatore\",\n                \"country\": \"India\",\n                \"createdAt\": \"2024-06-08T14:57:36.722Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"123 street\",\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"102_AGENT\",\n                \"identificationCode\": \"ID123\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"joice carrier2\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"102\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": \"LID123\",\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": \"TN\",\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2024-06-08T14:57:36.722Z\",\n                \"value\": \"joice carrier2\",\n                \"zipCode\": \"873682\",\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": null,\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-01-26T22:47:24.246Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": null,\n                \"customAddress2\": null,\n                \"email\": \"marcu.thuram@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"35_AGENT\",\n                \"identificationCode\": null,\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Marcu Thuram\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"35\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": \"44153641\",\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-01-26T22:47:24.246Z\",\n                \"value\": \"Marcu Thuram\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pune\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-12-02T06:26:42.796Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"41_AGENT\",\n                \"identificationCode\": \"BIN:456123\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"qA Transport\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"41\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC:451671\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-02T06:26:42.796Z\",\n                \"value\": \"qA\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \" Pune,India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-12-02T05:46:31.772Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \" Pune,India\",\n                \"customAddress2\": null,\n                \"email\": \"company@email.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"37_AGENT\",\n                \"identificationCode\": \"BIN:461754671\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Shaifaj Mulla\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"37\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC: 451671\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-02T05:46:31.772Z\",\n                \"value\": \"shaifaj\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pune, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2022-12-02T06:06:19.240Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"38_AGENT\",\n                \"identificationCode\": \"BIN:1234567\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"MS Transport\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"38\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC: 451671\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-02T06:06:19.240Z\",\n                \"value\": \"SM\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pune, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2022-12-02T06:19:54.226Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"40_AGENT\",\n                \"identificationCode\": \"BIN:461754671\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"SMS Transport\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"40\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC: 451671\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-02T06:19:54.226Z\",\n                \"value\": \"SM Mulla\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Mumbai\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": null,\n                \"createdAt\": \"2022-12-02T09:08:52.452Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Mumbai\",\n                \"customAddress2\": null,\n                \"email\": \"Company@gmail.com\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"45_AGENT\",\n                \"identificationCode\": \"BIN:761341\",\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Testing123\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"45\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-02T09:08:52.452Z\",\n                \"value\": \"Testing\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"Pune, India\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": null,\n                \"country\": \"India\",\n                \"createdAt\": \"2022-12-02T06:12:24.675Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"Pune\",\n                \"customAddress2\": null,\n                \"email\": null,\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"39_AGENT\",\n                \"identificationCode\": null,\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"SM Carrier\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"39\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": \"IEC: 451671\",\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": null,\n                \"registrationCode\": null,\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-12-02T06:12:24.675Z\",\n                \"value\": \"YogeshA\",\n                \"zipCode\": null,\n                \"__typename\": \"Agent\"\n            },\n            {\n                \"address\": \"214 Rue Lecourbe, 214, Parus, 75105, France\",\n                \"bankName\": null,\n                \"bankAccounts\": [],\n                \"bicNumber\": null,\n                \"city\": \"Parus\",\n                \"country\": \"France\",\n                \"createdAt\": \"2022-04-23T20:59:20.211Z\",\n                \"creditCoverage\": null,\n                \"creditCoverageLastValidityDate\": null,\n                \"creditCoverageProvider\": null,\n                \"customAddress\": \"214 Rue Lecourbe, 214\",\n                \"customAddress2\": \"\",\n                \"email\": \"eyohan03@yahoo.fr\",\n                \"fax\": null,\n                \"ibanNumber\": null,\n                \"id\": \"36_AGENT\",\n                \"identificationCode\": null,\n                \"industryCode\": null,\n                \"legalForm\": null,\n                \"legalName\": \"Yohan Ehoussou inc\",\n                \"legalEntityType\": \"AGENT\",\n                \"providerId\": \"36\",\n                \"providerType\": \"AGENT\",\n                \"licenseNumber\": null,\n                \"locationIdentificationCode\": null,\n                \"otherCode1\": null,\n                \"otherCode2\": null,\n                \"phoneNumber\": \"049 567 5674\",\n                \"registrationCode\": \"545367157\",\n                \"state\": null,\n                \"taxCode\": null,\n                \"taxRate\": null,\n                \"updatedAt\": \"2022-04-23T20:59:20.211Z\",\n                \"value\": \"Yohan Ehoussou inc\",\n                \"zipCode\": \"75105\",\n                \"__typename\": \"Agent\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "https://demo.api.haroldwaste.com/graphql",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>ID</th>",
+							"        <th>Legal Name</th>",
+							"        <th>Email</th>",
+							"        <th>Phone Number</th>",
+							"    </tr>",
+							"    ",
+							"    {{#each response.data.providerChoices}}",
+							"        <tr>",
+							"            <td>{{id}}</td>",
+							"            <td>{{legalName}}</td>",
+							"            <td>{{email}}</td>",
+							"            <td>{{phoneNumber}}</td>",
+							"        </tr>",
+							"    {{/each}}",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    return { response: pm.response.json() }",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InFhQGp1bGVzYWkuY29tIiwiZW1haWxTaWduYXR1cmUiOm51bGwsImVuYWJsZVBlcm1pdGlvIjpudWxsLCJmaXJzdE5hbWUiOiJRQSIsImlkIjo0NTQsImlzRXh0ZXJuYWwiOm51bGwsImxhbmd1YWdlIjoiRU4iLCJsYXN0TmFtZSI6Ikp1bGVzIiwib3JnYW5pemF0aW9uSWQiOiJkZW1vX3dtX2xvdHJfZXh0ciIsInJvbGVzIjpbXSwidWlkIjoiOWE3MDI2OGUiLCJ2aWV3R3JvdXAiOm51bGwsImlhdCI6MTc0NDM1ODU1NH0.l5XMgVo1trCJBkZd5wn6V5ZoFfUKPAhTI3X06IrlNj0"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operationName\": \"providerChoices\",\n    \"variables\": {\n        \"filters\": {\n            \"type\": \"AGENT\"\n        }\n    },\n    \"extensions\": {\n        \"persistedQuery\": {\n            \"version\": 1,\n            \"sha256Hash\": \"562c79f766fe581796dc3cbff2505116baa2af7d8234b2e6057dce949b5326cc\"\n        }\n    }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://demo.api.haroldwaste.com/graphql"
 			},
 			"response": []
 		}
