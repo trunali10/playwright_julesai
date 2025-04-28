@@ -24,8 +24,11 @@ test.describe('Login Tests', () => {
         // Step 3: Assert dashboard is visible
         await expect(page.locator("//div[contains(text(),'Demo')]")).toBeVisible();
 
+
         // Step 4: Assert logged-in user's name/email is visible
-        await expect(page.locator('text=Qa JULES')).toBeVisible();
+        await expect(page.getByText('Qa JULES', { exact: true })).toBeVisible();
+
+        //await expect(page.locator('text= Qa JULES')).toBeVisible();
 
         // Step 5: (Optional) Validate URL contains 'purchases'
         await expect(page).toHaveURL(/.*purchases/);
